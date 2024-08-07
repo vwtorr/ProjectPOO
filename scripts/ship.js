@@ -8,7 +8,7 @@ class Ship {
   }
 
   show() {
-    image(shipImage, this.x, this.y, 50, 50); // Ajuste o tamanho da nave conforme necessário
+    image(shipImage, this.x, this.y, 50, 50);
   }
 
   setDir(dir, axis) {
@@ -26,7 +26,7 @@ class Ship {
   move() {
     this.x += this.xdir * this.moveSpeed;
     this.y += this.ydir * this.moveSpeed;
-    this.x = constrain(this.x, 0, width - 50); // Mantenha a nave dentro do canvas
+    this.x = constrain(this.x, 0, width - 50);
     this.y = constrain(this.y, 0, height - 50);
   }
 }
