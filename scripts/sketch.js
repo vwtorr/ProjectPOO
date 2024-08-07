@@ -9,19 +9,42 @@ let shipImage;
 let alienImage;
 let spawnInterval = 2000;
 let spawnTimer;
+let score;
+let bgSound;
+let blasterShot;
+let deathSounds = [];
+let gameOverSound;
+let explosionGif;
 
 function preload() {
   shipImage = loadImage('./assets/nav.png');
   alienImage = loadImage('./assets/nav-inimiga.png');
   backgroundImage = loadImage('./assets/space-teste.png');
+
+  bgSound = loadSound('./assets/bg-sound.mp3');
+  blasterShot = loadSound('./assets/blaster-shot.mp3');
+  deathSounds = [
+    loadSound('./assets/death-sound-1.mp3'),
+    loadSound('./assets/death-sound-2.mp3'),
+    loadSound('./assets/death-sound-3.mp3'),
+    loadSound('./assets/death-sound-4.mp3')
+  ];
+  gameOverSound = loadSound('./assets/game-over.mp3');
+  explosionGif = createImg('./assets/explosion.gif');
+  explosionGif.hide(); // Esconde o GIF até que seja necessário mostrá-lo
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   backgroundImg = new Background(backgroundImage);
   ship = new Ship();
+  score = new Score(); // Inicializa a pontuação
+  explosionGif = createImg('./assets/explosion.gif');
+  explosionGif.size(50, 50); // Define o tamanho da explosão
+  explosionGif.hide(); // Esconde o GIF até que seja necessário mostrá-lo
   noLoop();
 }
+
 
 function spawnAlien() {
   let margin = width * 0.25;
@@ -66,6 +89,8 @@ function draw() {
       gameOver();
     }
   }
+
+  score.show(); // Exibe o score na tela
 }
 
 function checkCollisions() {
@@ -74,15 +99,26 @@ function checkCollisions() {
       if (bullet.hits(alien)) {
         alien.disappear();
         bullet.disappear();
+        score.increment();
+
+        let randomDeathSound = random(deathSounds);
+        randomDeathSound.play(); // Toca um som de morte aleatório
+
+        // Mostrar o GIF de explosão
+        explosionGif.position(alien.x, alien.y);
+        explosionGif.show();
+        setTimeout(() => explosionGif.hide(), 500); // Esconde o GIF após 500ms
       }
     }
   }
 }
 
+
 function keyPressed() {
   if (gameStarted && key === ' ') {
     let bullet = new Bullet(ship.x + 25, ship.y);
     bullets.push(bullet);
+    blasterShot.play(); // Toca o som de tiro
   }
   handleArrowKeys(true);
   if (keyCode === SHIFT) {
@@ -109,12 +145,15 @@ function startGame() {
   gameStarted = true;
   spawnTimer = setInterval(spawnAlien, spawnInterval);
   loop();
+  bgSound.loop(); // Loop de som de fundo
 }
 
 function gameOver() {
   gameStarted = false;
   noLoop();
   clearInterval(spawnTimer);
+  bgSound.stop(); // Para o som de fundo
+  gameOverSound.play(); // Toca o som de game over
   alert("Game Over! Tente novamente.");
   location.reload();
 }

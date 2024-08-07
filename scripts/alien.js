@@ -46,5 +46,11 @@ class Alien {
   setImage(image) {
     this.image = image;
   }
-}
 
+  updateShootInterval(score) {
+    this.shootInterval = this.baseShootInterval - (score * 10);
+    if (this.shootInterval < 500) {
+      this.shootInterval = 500;
+    }
+  }
+}
