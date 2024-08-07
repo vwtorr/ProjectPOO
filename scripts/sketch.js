@@ -32,6 +32,7 @@ function spawnAlien() {
 
 function draw() {
   if (!gameStarted) return;
+
   background(0);
   backgroundImg.show();
   ship.show();
@@ -70,7 +71,7 @@ function draw() {
 function checkCollisions() {
   for (let bullet of bullets) {
     for (let alien of aliens) {
-      if (bullet.hits(alien)) {
+      if (bullet.hits(alien) && !alien.exploding) {
         alien.disappear();
         bullet.disappear();
       }
