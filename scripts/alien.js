@@ -43,10 +43,14 @@ class Alien {
 
   update() {
     this.shootTimer += deltaTime;
-    if (this.shootTimer > this.shootInterval && !this.toDelete) {
+    if (this.shootTimer > this.shootInterval && !this.toDelete && !this.exploding) {
       this.shoot();
       this.shootTimer = 0;
     }
+  }
+
+  updateShootInterval(score) {
+    this.shootInterval = max(500, 2000 - score * 50);
   }
 
   disappear() {
