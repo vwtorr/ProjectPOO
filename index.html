@@ -24,11 +24,45 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .menu h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
       color: white;
     }
     .menu button {
-      padding: 10px 20px;
-      font-size: 20px;
+      padding: 15px 30px;
+      font-size: 24px;
+      background: #f39c12;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s;
+    }
+    .menu button:hover {
+      background: #e67e22;
+    }
+    .instructions {
+      margin-top: 20px;
+      font-size: 18px;
+      color: white;
+      text-align: left;
+    }
+    .highlight {
+      color: #f39c12;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none;
+    }
+    .instructions-title {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: white;
     }
   </style>
 </head>
@@ -36,6 +70,13 @@
   <div class="menu" id="menu">
     <h1>Jogo Espacial</h1>
     <button onclick="startGame()">Iniciar Jogo</button>
+    <div class="instructions" id="instructions">
+      <p class="instructions-title">Instruções:</p>
+      <p>Use as <span class="highlight">setas de direção</span> para mover a nave.</p>
+      <p>Pressione a <span class="highlight">barra de espaço</span> para atirar.</p>
+      <p>Mantenha a <span class="highlight">SHIFT</span> pressionada para acelerar o foguete.</p>
+      <p>Evite os inimigos e sobreviva o máximo que conseguir!</p>
+    </div>
   </div>
 </body>
 </html>
