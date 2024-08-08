@@ -39,6 +39,12 @@ class Alien {
     }
   }
 
+  // AUMENTO DE DIFICULDADE AQUI
+  updateShootInterval(score) {
+    let level = Math.floor(score / 5); // Aumenta a dificuldade a cada 5 pontos
+    this.shootInterval = max(400, 2000 - level * 100); // Intervalo de tiro diminui com a pontuação
+  }
+
   disappear() {
     this.toDelete = true;
   }
@@ -46,11 +52,15 @@ class Alien {
   setImage(image) {
     this.image = image;
   }
+}
 
-  updateShootInterval(score) {
-    this.shootInterval = this.baseShootInterval - (score * 10);
-    if (this.shootInterval < 500) {
-      this.shootInterval = 500;
-    }
+// Função para atualizar o intervalo de spawn dos Aliens
+function updateSpawnInterval() {
+  let level = Math.floor(score.get() / 5); // Aumenta a dificuldade a cada 5 pontos
+  let newInterval = max(400, 2000 - level * 100); // Intervalo de spawn diminui com a pontuação
+  if (newInterval !== spawnInterval) {
+    clearInterval(spawnTimer);
+    spawnInterval = newInterval;
+    spawnTimer = setInterval(spawnAlien, spawnInterval);
   }
 }

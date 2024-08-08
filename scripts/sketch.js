@@ -2,7 +2,6 @@ let ship;
 let bullets = [];
 let aliens = [];
 let enemyBullets = [];
-let backgroundImage;
 let backgroundImg;
 let gameStarted = false;
 let shipImage;
@@ -15,6 +14,8 @@ let blasterShot;
 let deathSounds = [];
 let gameOverSound;
 let explosionGif;
+let shakeOffset = 0;
+const shakeSpeed = 0.02;
 
 function preload() {
   shipImage = loadImage('./assets/nav.png');
@@ -36,7 +37,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  backgroundImg = new Background(backgroundImage);
+  backgroundImg = new Background(backgroundImage); // Inicializa o fundo
   ship = new Ship();
   score = new Score(); // Inicializa a pontuação
   explosionGif = createImg('./assets/explosion.gif');
@@ -44,7 +45,6 @@ function setup() {
   explosionGif.hide(); // Esconde o GIF até que seja necessário mostrá-lo
   noLoop();
 }
-
 
 function spawnAlien() {
   let margin = width * 0.25;
@@ -57,7 +57,16 @@ function draw() {
   if (!gameStarted) return;
 
   background(0);
-  backgroundImg.show();
+  
+  // Lógica de tremor no plano de fundo
+  shakeOffset += shakeSpeed;
+  if (shakeOffset > TWO_PI) shakeOffset -= TWO_PI;
+  let shakeAmount = sin(shakeOffset) * 10;
+  push();
+  translate(shakeAmount, 0);
+  backgroundImg.show(); // Exibe o fundo com o efeito de tremor
+  pop();
+
   ship.show();
   ship.move();
 
@@ -112,7 +121,6 @@ function checkCollisions() {
     }
   }
 }
-
 
 function keyPressed() {
   if (gameStarted && key === ' ') {
