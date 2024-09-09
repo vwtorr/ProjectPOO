@@ -57,7 +57,7 @@ function draw() {
   if (!gameStarted) return;
 
   background(0);
-  
+
   // Lógica de tremor no plano de fundo
   shakeOffset += shakeSpeed;
   if (shakeOffset > TWO_PI) shakeOffset -= TWO_PI;
@@ -123,29 +123,37 @@ function checkCollisions() {
 }
 
 function keyPressed() {
-  if (gameStarted && key === ' ') {
-    let bullet = new Bullet(ship.x + 25, ship.y);
-    bullets.push(bullet);
-    blasterShot.play(); // Toca o som de tiro
-  }
-  handleArrowKeys(true);
-  if (keyCode === SHIFT) {
-    ship.setSpeed(ship.moveSpeed * 2);
+  if (gameStarted) {
+    if (key === ' ') {
+      let bullet = new Bullet(ship.x + 25, ship.y);
+      bullets.push(bullet);
+      blasterShot.play(); // Som de tiro
+    }
+    if (keyCode === SHIFT) {
+      ship.setSpeed(ship.moveSpeed * 2); // Aumenta a velocidade com SHIFT pressionado
+    }
+    handleArrowKeys(true); // Captura teclas de seta
   }
 }
 
 function keyReleased() {
-  handleArrowKeys(false);
+  handleArrowKeys(false); // Libera as teclas de seta
+
   if (keyCode === SHIFT) {
-    ship.setSpeed(5);
+    ship.setSpeed(5); // Volta à velocidade normal ao soltar SHIFT
   }
 }
 
 function handleArrowKeys(pressed) {
-  if (keyCode === LEFT_ARROW) ship.setDir(pressed ? -1 : 0, 'x');
-  else if (keyCode === RIGHT_ARROW) ship.setDir(pressed ? 1 : 0, 'x');
-  else if (keyCode === UP_ARROW) ship.setDir(pressed ? -1 : 0, 'y');
-  else if (keyCode === DOWN_ARROW) ship.setDir(pressed ? 1 : 0, 'y');
+  if (keyCode === LEFT_ARROW) {
+    ship.setDir(pressed ? -1 : 0, 'x'); 
+  } else if (keyCode === RIGHT_ARROW) {
+    ship.setDir(pressed ? 1 : 0, 'x'); 
+  } else if (keyCode === UP_ARROW) {
+    ship.setDir(pressed ? -1 : 0, 'y'); 
+  } else if (keyCode === DOWN_ARROW) {
+    ship.setDir(pressed ? 1 : 0, 'y'); 
+  }
 }
 
 function startGame() {

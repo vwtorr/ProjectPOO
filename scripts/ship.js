@@ -1,10 +1,9 @@
-class Ship {
+class Ship extends Entity {
   constructor() {
-    this.x = width / 2;
-    this.y = height - 60;
+    super(width / 2, height - 60, 5); // Posição inicial e velocidade
     this.xdir = 0;
     this.ydir = 0;
-    this.moveSpeed = 5;
+    this.speed = 5; // Velocidade inicial
   }
 
   show() {
@@ -20,12 +19,15 @@ class Ship {
   }
 
   setSpeed(newSpeed) {
-    this.moveSpeed = newSpeed;
+    this.speed = newSpeed;
   }
 
   move() {
-    this.x += this.xdir * this.moveSpeed;
-    this.y += this.ydir * this.moveSpeed;
+    // Move a nave com base na direção e velocidade
+    this.x += this.xdir * this.speed;
+    this.y += this.ydir * this.speed;
+
+    // Mantém a nave dentro da tela
     this.x = constrain(this.x, 0, width - 50);
     this.y = constrain(this.y, 0, height - 50);
   }
