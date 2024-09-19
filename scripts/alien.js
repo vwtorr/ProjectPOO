@@ -36,6 +36,12 @@ class Alien extends Entity {
     this.shootInterval = max(400, 2000 - level * 100);  // Diminui o intervalo de tiro com base na pontuação
   }
 
+  updateAliensShootInterval() {
+    for (let alien of aliens) {
+      alien.updateShootInterval(this.value);
+    }
+  }
+
   move() {
     // Movimento para baixo
     this.y += this.speed;

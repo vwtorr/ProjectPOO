@@ -47,12 +47,6 @@ class Score {
     return textAscent() + textDescent();
   }
 
-  updateAliensShootInterval() {
-    for (let alien of aliens) {
-      alien.updateShootInterval(this.value);
-    }
-  }
-
   updateScoreColor() {
     let isMaxSpeed = aliens.some(alien => alien.shootInterval <= this.maxSpeedInterval);
     this.color = isMaxSpeed ? color(255, 0, 0) : color(255);
