@@ -79,6 +79,7 @@ function draw() {
     alien.update();
     alien.show();
     alien.move();
+    alien.updateShootInterval(score.get()); // Atualiza o intervalo de tiro do alien com base na pontuação
   }
 
   checkCollisions();

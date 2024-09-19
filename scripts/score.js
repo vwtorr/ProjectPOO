@@ -7,7 +7,6 @@ class Score {
 
   increment() {
     this.value++;
-    this.updateAliensShootInterval();
     this.updateScoreColor();
   }
 
@@ -45,12 +44,6 @@ class Score {
   getTextHeight() {
     textSize(32);
     return textAscent() + textDescent();
-  }
-
-  updateAliensShootInterval() {
-    for (let alien of aliens) {
-      alien.updateShootInterval(this.value);
-    }
   }
 
   updateScoreColor() {
