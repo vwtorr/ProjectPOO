@@ -1,9 +1,9 @@
 class Ship extends Entity {
   constructor() {
-    super(width / 2, height - 60, 5); // Posição inicial e velocidade
+    super(width / 2, height - 60); // Posição inicial
     this.xdir = 0;
     this.ydir = 0;
-    this.speed = 5; // Velocidade inicial
+    this.speed = 5; // Velocidade inicial padrão
   }
 
   show() {
@@ -19,7 +19,8 @@ class Ship extends Entity {
   }
 
   setSpeed(newSpeed) {
-    this.speed = newSpeed;
+    // Garante que a velocidade seja um valor aceitável
+    this.speed = max(0, newSpeed);
   }
 
   move() {

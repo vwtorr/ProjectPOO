@@ -130,7 +130,7 @@ function keyPressed() {
       blasterShot.play(); // Som de tiro
     }
     if (keyCode === SHIFT) {
-      ship.setSpeed(ship.moveSpeed * 2); // Aumenta a velocidade com SHIFT pressionado
+      ship.setSpeed(ship.speed * 2); // Aumenta a velocidade ao pressionar SHIFT
     }
     handleArrowKeys(true); // Captura teclas de seta
   }
@@ -140,7 +140,7 @@ function keyReleased() {
   handleArrowKeys(false); // Libera as teclas de seta
 
   if (keyCode === SHIFT) {
-    ship.setSpeed(5); // Volta à velocidade normal ao soltar SHIFT
+    ship.setSpeed(5); // Retorna à velocidade padrão ao soltar SHIFT
   }
 }
 
